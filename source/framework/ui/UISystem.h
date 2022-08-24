@@ -5,12 +5,13 @@
 #ifndef PBREDITOR_UISYSTEM_H
 #define PBREDITOR_UISYSTEM_H
 
-#include <glfw/glfw3.h>
+#include <GLFW/glfw3.h>
 
 namespace pbreditor {
     class UISystem {
     private:
         bool m_is_init;
+        GLFWwindow *m_window;
     public:
         UISystem();
 

@@ -4,11 +4,15 @@
 
 #pragma once
 
-class GLight : public GObject {
-public:
-    GLight();
+#include "GObject.h"
 
-    ~GLight();
+namespace pbreditor {
+    class GLight : public GObject {
+    public:
+        GLight();
 
-};
+        ~GLight();
+
+    };
+}
 

@@ -7,6 +7,9 @@
 /**
  * 支持Obj3d,FBX导入
  */
+#include "GObject.h"
+#include <string>
+
 namespace pbreditor {
 
     class GMesh : public GObject {
@@ -15,7 +18,7 @@ namespace pbreditor {
 
         virtual ~GMesh();
 
-        void loadModel(const string &path);
+        void loadModel(const std::string &path);
     };
 }
 
