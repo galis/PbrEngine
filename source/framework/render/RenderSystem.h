@@ -5,9 +5,24 @@
 #ifndef PBREDITOR_RENDERSYSTEM_H
 #define PBREDITOR_RENDERSYSTEM_H
 
+#include "RenderPipe.h"
+#include <memory>
+
+//维护RenderPipe对Mesh进行渲染
 namespace pbreditor {
     class RenderSystem {
+    private:
+        std::unique_ptr<RenderPipe> renderPipe;
+    public:
+        RenderSystem();
 
+        ~RenderSystem();
+
+        int init();
+
+        int destroy();
+
+        int tick();
     };
 }
 

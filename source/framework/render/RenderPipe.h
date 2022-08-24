@@ -7,7 +7,17 @@
 
 namespace pbreditor {
     class RenderPipe {
+    private:
+    public:
+        RenderPipe();
 
+        virtual ~RenderPipe();
+
+        int init();
+
+        int destroy();
+
+        virtual void render() = 0;
     };
 }
 #endif //PBREDITOR_RENDERPIPE_H

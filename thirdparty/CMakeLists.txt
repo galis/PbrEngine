@@ -1,6 +1,6 @@
 message("start build thirdparty>>>>>>>")
 
-set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
+#set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
 
 if (NOT TARGET imgui)
     include(imgui.cmake)
@@ -8,7 +8,7 @@ endif ()
 
 if (NOT TARGET stb)
     include(stb.cmake)
-#    set_target_properties(stb PROPERTIES FOLDER stb)
+    #    set_target_properties(stb PROPERTIES FOLDER stb)
 endif ()
 
 if (NOT TARGET glm)
@@ -19,10 +19,9 @@ if (NOT TARGET glm)
     set_target_properties(glm_static PROPERTIES FOLDER glm)
 endif ()
 
-if (NOT TARGET tinyobjloader)
-    add_subdirectory(tinyobjloader)
-    set_target_properties(tinyobjloader PROPERTIES FOLDER tinyobjloader)
-    set_target_properties(uninstall PROPERTIES FOLDER tinyobjloader)
+if (NOT TARGET assimp)
+    add_subdirectory(assimp)
+    set_target_properties(assimp PROPERTIES FOLDER assimp)
 endif ()
 
 if (NOT TARGET glfw)

@@ -7,9 +7,9 @@
 [submodule "thirdparty/glfw"]
 	path = thirdparty/glfw
 	url = git@github.com:glfw/glfw.git
-[submodule "thirdparty/tinyobjloader"]
-	path = thirdparty/tinyobjloader
-	url = git@github.com:tinyobjloader/tinyobjloader.git
 [submodule "thirdparty/stb"]
 	path = thirdparty/stb
 	url = git@github.com:nothings/stb.git
+[submodule "thirdparty/assimp"]
+	path = thirdparty/assimp
+	url = git@github.com:assimp/assimp.git

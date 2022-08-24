@@ -7,7 +7,17 @@
 
 namespace pbreditor {
     class RenderPass {
+    private:
+    public:
+        RenderPass();
 
+        virtual ~RenderPass();
+
+        virtual int init();
+
+        virtual int destroy();
+
+        virtual void render();
     };
 }
 

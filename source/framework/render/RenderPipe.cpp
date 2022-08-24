@@ -3,3 +3,19 @@
 //
 
 #include "RenderPipe.h"
+
+pbreditor::RenderPipe::RenderPipe() {
+
+}
+
+pbreditor::RenderPipe::~RenderPipe() {
+
+}
+
+int pbreditor::RenderPipe::init() {
+    return 0;
+}
+
+int pbreditor::RenderPipe::destroy() {
+    return 0;
+}

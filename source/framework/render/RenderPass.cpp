@@ -3,3 +3,23 @@
 //
 
 #include "RenderPass.h"
+
+pbreditor::RenderPass::RenderPass() {
+
+}
+
+pbreditor::RenderPass::~RenderPass() {
+
+}
+
+int pbreditor::RenderPass::init() {
+    return 0;
+}
+
+int pbreditor::RenderPass::destroy() {
+    return 0;
+}
+
+void pbreditor::RenderPass::render() {
+
+}
