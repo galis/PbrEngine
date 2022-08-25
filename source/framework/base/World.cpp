@@ -38,3 +38,15 @@ int pbreditor::World::setCamera(glm::vec3 &&eye, glm::vec3 &&center, glm::vec3 &
     m_camera->lookAt(eye, center, up);
     return RESULT_OK;
 }
+
+std::vector<pbreditor::GModel> &pbreditor::World::getModels() {
+    return m_models;
+}
+
+std::vector<pbreditor::GLight> &pbreditor::World::getLights() {
+    return m_lights;
+}
+
+std::shared_ptr<pbreditor::GCamera> &pbreditor::World::getCamera() {
+    return m_camera;
+}

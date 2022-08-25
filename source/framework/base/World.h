@@ -32,6 +32,12 @@ namespace pbreditor {
         int removeLight(GObjectId id);
 
         int setCamera(glm::vec3 &&eye, glm::vec3 &&center, glm::vec3 &&up);
+
+        std::vector<GModel> &getModels();
+
+        std::vector<GLight> &getLights();
+
+        std::shared_ptr<GCamera> &getCamera();
     };
 
 }

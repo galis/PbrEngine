@@ -5,7 +5,7 @@
 #include "GModel.h"
 #include "../../platform/platform.h"
 
-pbreditor::GModel::GModel(std::string &&path) : m_path(path) {
+pbreditor::GModel::GModel(std::string &&path) : m_path(path), m_is_load(false) {
 
 }
 
@@ -14,6 +14,7 @@ pbreditor::GModel::~GModel() {
 }
 
 int pbreditor::GModel::loadModel() {
+    if (m_is_load) return RESULT_OK;
 //    if (!Resource::CheckPath(path)) {
 //        return RESULT_ERROR;
 //    }
@@ -27,6 +28,7 @@ int pbreditor::GModel::loadModel() {
         return RESULT_ERROR;
     }
     processNode(scene->mRootNode, scene);
+    m_is_load = true;
     return RESULT_OK;
 }
 
@@ -105,6 +107,14 @@ std::vector<pbreditor::Texture> pbreditor::GModel::loadMaterialTextures(aiMateri
         textures.push_back(texture);
     }
     return textures;
+}
+
+const std::string &pbreditor::GModel::getPath() const {
+    return m_path;
+}
+
+const std::vector<pbreditor::Mesh> &pbreditor::GModel::getMeshs() const {
+    return m_meshs;
 }
 
 pbreditor::Mesh::Mesh(const std::vector<Vertex> &verts, const std::vector<IndexType> &indexs, const std::vector<Texture> &textures) : m_verts(

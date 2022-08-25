@@ -20,6 +20,6 @@ int pbreditor::RenderPass::destroy() {
     return 0;
 }
 
-void pbreditor::RenderPass::render() {
-
+int pbreditor::RenderPass::render(const WindowInfo *winInfo) {
+    return 0;
 }

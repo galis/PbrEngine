@@ -5,10 +5,9 @@
 #pragma once
 
 #include "glm/glm.hpp"
-#include "ui/UISystem.h"
+#include "window/WindowSystem.h"
 #include "input/InputSystem.h"
 #include "render/RenderSystem.h"
-#include "ui/UISystem.h"
 #include "../framework/base/World.h"
 
 namespace pbreditor {
@@ -19,11 +18,11 @@ namespace pbreditor {
         bool m_is_fxaa;//是否fxaa处理
         glm::vec2 m_screen_size;//屏幕大小
 
-        UISystem m_uiSystem;
-        InputSystem m_inputSystem;
-        RenderSystem m_renderSystem;
+        WindowSystem m_window_system;
+        InputSystem m_input_system;
+        RenderSystem m_render_system;
 
-        World m_world;
+        std::shared_ptr<World> m_world;
     public:
 
         PbrContext();
@@ -31,6 +30,8 @@ namespace pbreditor {
         ~PbrContext();
 
         void startSystems();
+
+        void tick();
 
         void closeSystems();
 

@@ -12,13 +12,15 @@
 namespace pbreditor {
     class RenderSystem {
     private:
-        std::unique_ptr<RenderPipe> renderPipe;
+        std::shared_ptr<WindowInfo> m_win_info;
+        std::shared_ptr<World> m_world;
+        std::unique_ptr<RenderPipe> m_render_pipe;
     public:
         RenderSystem();
 
         ~RenderSystem();
 
-        int init();
+        int init(std::shared_ptr<WindowInfo> winInfo, std::shared_ptr<World> world);
 
         int destroy();
 

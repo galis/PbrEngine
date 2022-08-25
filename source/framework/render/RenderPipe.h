@@ -5,6 +5,9 @@
 #ifndef PBREDITOR_RENDERPIPE_H
 #define PBREDITOR_RENDERPIPE_H
 
+#include "../window/WindowSystem.h"
+#include "../base/World.h"
+
 namespace pbreditor {
     class RenderPipe {
     private:
@@ -13,11 +16,11 @@ namespace pbreditor {
 
         virtual ~RenderPipe();
 
-        int init();
+        virtual int init();
 
-        int destroy();
+        virtual int destroy();
 
-        virtual void render() = 0;
+        virtual int render(const WindowInfo *winInfo, World *world) = 0;
     };
 }
 #endif //PBREDITOR_RENDERPIPE_H

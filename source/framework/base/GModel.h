@@ -38,6 +38,7 @@ namespace pbreditor {
     private:
         std::string m_path;
         std::vector<Mesh> m_meshs;
+        bool m_is_load;
     public:
         GModel(std::string &&path);
 
@@ -50,6 +51,10 @@ namespace pbreditor {
         Mesh processMesh(AiMesh *mesh, const AiScene *scene);
 
         std::vector<Texture> loadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string &&typeName);
+
+        const std::string &getPath() const;
+
+        const std::vector<Mesh> &getMeshs() const;
     };
 }
 

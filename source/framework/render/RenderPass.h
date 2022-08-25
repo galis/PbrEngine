@@ -5,6 +5,8 @@
 #ifndef PBREDITOR_RENDERPASS_H
 #define PBREDITOR_RENDERPASS_H
 
+#include "RenderSystem.h"
+
 namespace pbreditor {
     class RenderPass {
     private:
@@ -17,7 +19,7 @@ namespace pbreditor {
 
         virtual int destroy();
 
-        virtual void render();
+        virtual int render(const WindowInfo *winInfo);
     };
 }
 

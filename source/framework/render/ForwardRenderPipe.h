@@ -8,17 +8,23 @@
 
 #include "RenderPipe.h"
 #include "pass/MainCameraPass.h"
+#include "pass/UiPass.h"
 
 namespace pbreditor {
     class ForwardRenderPipe : public RenderPipe {
     private:
         MainCameraPass m_camera_pass;
+        UiPass m_ui_pass;
     public:
         ForwardRenderPipe();
 
         ~ForwardRenderPipe() override;
 
-        void render() override;
+        int init() override;
+
+        int destroy() override;
+
+        int render(const WindowInfo *winInfo, World *world) override;
     };
 }
 #endif //PBREDITOR_FORWARDRENDERPIPE_H
