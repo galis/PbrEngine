@@ -36,13 +36,14 @@ namespace pbreditor {
 
     class GModel : public GObject {
     private:
+        std::string m_path;
         std::vector<Mesh> m_meshs;
     public:
-        GModel();
+        GModel(std::string &&path);
 
         virtual ~GModel();
 
-        int loadModel(const std::string &path);
+        int loadModel();
 
         int processNode(AiNode *node, const AiScene *scene);
 

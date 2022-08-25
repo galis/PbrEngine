@@ -11,20 +11,23 @@
 
 namespace pbreditor {
 
-    typedef GLint TextureID;
+    typedef GLuint TextureID;
 
     class Texture {
     private:
         int m_width;
         int m_height;
+        int m_channels;
         TextureID m_id;
         std::string m_path;
     public:
-        Texture(std::string &path);
+
+        explicit Texture(std::string &&path);
 
         ~Texture();
 
         int load();
+
     };
 }
 

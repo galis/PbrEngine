@@ -9,6 +9,7 @@
 #include "input/InputSystem.h"
 #include "render/RenderSystem.h"
 #include "ui/UISystem.h"
+#include "../framework/base/World.h"
 
 namespace pbreditor {
     class PbrContext {
@@ -18,9 +19,11 @@ namespace pbreditor {
         bool m_is_fxaa;//是否fxaa处理
         glm::vec2 m_screen_size;//屏幕大小
 
-        UISystem uiSystem;
-        InputSystem inputSystem;
-        RenderSystem renderSystem;
+        UISystem m_uiSystem;
+        InputSystem m_inputSystem;
+        RenderSystem m_renderSystem;
+
+        World m_world;
     public:
 
         PbrContext();

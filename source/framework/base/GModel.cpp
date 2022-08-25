@@ -5,7 +5,7 @@
 #include "GModel.h"
 #include "../../platform/platform.h"
 
-pbreditor::GModel::GModel() {
+pbreditor::GModel::GModel(std::string &&path) : m_path(path) {
 
 }
 
@@ -13,13 +13,13 @@ pbreditor::GModel::~GModel() {
 
 }
 
-int pbreditor::GModel::loadModel(const std::string &path) {
+int pbreditor::GModel::loadModel() {
 //    if (!Resource::CheckPath(path)) {
 //        return RESULT_ERROR;
 //    }
-    std::string &&dir = path.substr(0, path.find_last_of('/'));
+    std::string &&dir = m_path.substr(0, m_path.find_last_of('/'));
     Assimp::Importer importer;
-    const AiScene *scene = importer.ReadFile(path,
+    const AiScene *scene = importer.ReadFile(m_path,
                                              aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
     if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) // if is Not Zero
     {
@@ -96,13 +96,14 @@ pbreditor::Mesh pbreditor::GModel::processMesh(AiMesh *mesh, const AiScene *scen
 
 std::vector<pbreditor::Texture> pbreditor::GModel::loadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string &&typeName) {
     std::vector<Texture> textures;
-//    for (unsigned int i = 0; i < mat->GetTextureCount(type); i++) {
-//        aiString str;
-//        mat->GetTexture(type, i, &str);
-//        Texture texture(dir + "/" + str.C_Str());
-//        texture.load();//马上加载...
-//        textures.push_back(texture);
-//    }
+    std::string &&dir = m_path.substr(0, m_path.find_last_of('/'));
+    for (unsigned int i = 0; i < mat->GetTextureCount(type); i++) {
+        aiString str;
+        mat->GetTexture(type, i, &str);
+        Texture texture(dir + "/" + str.C_Str());
+        texture.load();//马上加载...
+        textures.push_back(texture);
+    }
     return textures;
 }
 

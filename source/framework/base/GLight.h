@@ -4,14 +4,25 @@
 
 #pragma once
 
+#include <ostream>
 #include "GObject.h"
 
 namespace pbreditor {
+    enum LightType {
+        POINT,
+        PARRALL,
+    };
+
     class GLight : public GObject {
+    private:
+        glm::vec3 m_light_color;
+        LightType m_light_type;
     public:
-        GLight();
+        GLight(LightType typ, glm::vec3 &&color);
 
         ~GLight();
+
+        friend std::ostream &operator<<(std::ostream &os, const GLight &light);
 
     };
 }

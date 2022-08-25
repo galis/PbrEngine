@@ -13,9 +13,13 @@ pbreditor::PbrContext::~PbrContext() {
 }
 
 void pbreditor::PbrContext::startSystems() {
-    uiSystem.init();
+    m_world.addModel({0, 0, 0}, "/Volumes/mac-code/PbrEditor/asset/models/obj/cyborg/cyborg.obj");
+    m_world.addLight(POINT, {0, 0, 1}, {1, 1, 1});
+    m_uiSystem.init();
+    m_renderSystem.init();
 }
 
 void pbreditor::PbrContext::closeSystems() {
-    uiSystem.destroy();
+    m_uiSystem.destroy();
+    m_renderSystem.destroy();
 }
