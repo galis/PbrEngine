@@ -4,7 +4,7 @@
 
 #include "GObject.h"
 
-pbreditor::GObject::GObject() : m_id(g_id_alloc++), m_name("Default") {
+pbreditor::GObject::GObject(GObjectType type) : m_id(g_id_alloc++), m_name("Default"), m_type(type) {
 
 }
 
@@ -35,5 +35,13 @@ void pbreditor::GObject::setName(const std::string &name) {
 std::ostream &pbreditor::operator<<(std::ostream &os, const pbreditor::GObject &object) {
     os << static_cast<const Transform &>(object) << " m_id: " << object.m_id << " m_name: " << object.m_name;
     return os;
+}
+
+pbreditor::GObjectType pbreditor::GObject::getType() const {
+    return m_type;
+}
+
+void pbreditor::GObject::setType(pbreditor::GObjectType mType) {
+    m_type = mType;
 }
 

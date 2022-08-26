@@ -5,8 +5,8 @@
 #include "GModel.h"
 #include "../../platform/platform.h"
 
-pbreditor::GModel::GModel(std::string &&path) : m_path(path), m_is_load(false) {
-    setName("GModel "+getId());
+pbreditor::GModel::GModel(std::string &&path) : GObject(STATIC_MESH), m_path(path), m_is_load(false) {
+    setName("GModel " + getId());
 }
 
 pbreditor::GModel::~GModel() {
@@ -61,6 +61,11 @@ pbreditor::Mesh pbreditor::GModel::processMesh(AiMesh *mesh, const AiScene *scen
             vector.y = mesh->mNormals[i].y;
             vector.z = mesh->mNormals[i].z;
             vertex.normal = vector;
+
+            vector.x = mesh->mTangents[i].x;
+            vector.y = mesh->mTangents[i].y;
+            vector.z = mesh->mTangents[i].z;
+            vertex.tangent = vector;
         }
         //处理纹理坐标
         if (mesh->mTextureCoords[0]) {

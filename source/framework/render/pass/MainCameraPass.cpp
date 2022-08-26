@@ -10,9 +10,11 @@ static const std::string VS = R"(#version 330 core
 layout(location = 0) in vec3 aVertCoord;
 layout(location = 1) in vec3 aNormal;
 layout(location = 2) in vec2 aTextureCoord;
+layout(location = 3) in vec3 aTangent;
 out vec3 vNormal;
 out vec2 vTextureCoord;
 out vec3 vWorldCoord;
+out vec3 vTangent;
 uniform mat4 modelMatrix;
 uniform mat4 viewMatrix;
 uniform mat4 projMatrix;
@@ -20,6 +22,7 @@ void main(){
     vTextureCoord = aTextureCoord;
     vNormal = aNormal;
     vWorldCoord = aVertCoord;
+    vTangent = aTangent;
     gl_Position = projMatrix*viewMatrix*modelMatrix* vec4(aVertCoord,1.0);
 }
 )";
@@ -29,6 +32,7 @@ precision mediump float;
 in vec3 vNormal;
 in vec2 vTextureCoord;
 in vec3 vWorldCoord;
+in vec3 vTangent;
 out vec4 vFragColor;
 uniform vec3 light;
 uniform vec3 eye;
@@ -39,13 +43,17 @@ uniform sampler2D normTexture;
 void main(){
     vec3 diffColor = texture(diffTexture,vTextureCoord).rgb;
     vec3 specColor = texture(specTexture,vTextureCoord).rgb;
-    vec3 normal= texture(normTexture,vTextureCoord).rgb;
+    vec3 N = normalize(vNormal);
+    vec3 T = normalize(vTangent);
+    vec3 B = normalize(cross(N,T));
+    mat3 tbn = mat3(T,B,N);
+    vec3 normal= normalize(tbn*(texture(normTexture,vTextureCoord).xyz*2.0-1.0));
     vec3 ambient = vec3(0.2);
-    vec3 diff = vec3(0.8)* max(0.0,dot(normalize(light-vWorldCoord),normal));
+    vec3 diff = vec3(0.5)* max(0.0,dot(normalize(light-vWorldCoord),normal));
     vec3 reflectLight = normalize(reflect(normalize(vWorldCoord-light),normal));
     vec3 viewDir = normalize(eye-vWorldCoord);
-    vec3 spec = vec3(0.0);
-    vFragColor = vec4((ambient+diff)*diffColor,1.0);
+    vec3 spec = vec3(0.3)*max(0.0,dot(viewDir,reflectLight));
+    vFragColor = vec4((ambient+diff+spec)*diffColor,1.0);
 }
 )";
 
@@ -84,7 +92,9 @@ int pbreditor::MainCameraPass::process(pbreditor::World *world) {
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 3, GL_FLOAT, false, sizeof(Vertex), (GLvoid *) offsetof(Vertex, normal));
     glEnableVertexAttribArray(2);
-    glVertexAttribPointer(2, 3, GL_FLOAT, false, sizeof(Vertex), (GLvoid *) offsetof(Vertex, coord));
+    glVertexAttribPointer(2, 2, GL_FLOAT, false, sizeof(Vertex), (GLvoid *) offsetof(Vertex, coord));
+    glEnableVertexAttribArray(3);
+    glVertexAttribPointer(3, 3, GL_FLOAT, false, sizeof(Vertex), (GLvoid *) offsetof(Vertex, tangent));
     m_draw_index_num = mesh.m_indexs.size();
 
     //process camera

@@ -16,7 +16,7 @@ glm::mat4x4 &pbreditor::GCamera::getMatrix() {
     return m_view_matrix;
 }
 
-pbreditor::GCamera::GCamera() : m_center(0.f, 0.f, 0.f), m_up(0.f, 1.f, 0.f) {
+pbreditor::GCamera::GCamera() : GObject(CAMERA), m_center(0.f, 0.f, 0.f), m_up(0.f, 1.f, 0.f) {
     setName("GCamera" + getId());
 }
 

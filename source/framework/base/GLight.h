@@ -22,6 +22,14 @@ namespace pbreditor {
 
         ~GLight();
 
+        glm::vec3 &getLightColor();
+
+        void setLightColor(const glm::vec3 &mLightColor);
+
+        LightType getLightType();
+
+        void setLightType(LightType mLightType);
+
         friend std::ostream &operator<<(std::ostream &os, const GLight &light);
 
     };

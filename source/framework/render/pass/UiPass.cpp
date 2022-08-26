@@ -57,10 +57,15 @@ int pbreditor::UiPass::render(const WindowInfo *winInfo, World *world) {
         ImGui::InputFloat("sy", &m_current_gobject->getScale()[1], 0.2f, 2.0f, "%.3f");
         ImGui::InputFloat("sz", &m_current_gobject->getScale()[2], 0.2f, 2.0f, "%.3f");
 
+        if (m_current_gobject->getType() == LIGHT) {
+            ImGui::ColorEdit3("light color ", &((GLight *) m_current_gobject)->getLightColor()[0]);
+        }
+
         //过滤rotation数据
         m_current_gobject->getRotation()[0] = int(m_current_gobject->getRotation()[0]) % 360;
         m_current_gobject->getRotation()[1] = int(m_current_gobject->getRotation()[1]) % 360;
         m_current_gobject->getRotation()[2] = int(m_current_gobject->getRotation()[2]) % 360;
+
 
         ImGui::Text("position:%.3f,%.3f,%.3f", m_current_gobject->getPosition()[0], m_current_gobject->getPosition()[1],
                     m_current_gobject->getPosition()[2]);

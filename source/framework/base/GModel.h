@@ -24,6 +24,7 @@ namespace pbreditor {
         glm::vec3 position;
         glm::vec3 normal;
         glm::vec2 coord;
+        glm::vec3 tangent;
     };
 
     struct Mesh {
