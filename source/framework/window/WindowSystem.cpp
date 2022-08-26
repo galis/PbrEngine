@@ -72,41 +72,6 @@ void pbreditor::WindowSystem::init() {
     ImGui::StyleColorsDark();
     ImGui_ImplGlfw_InitForOpenGL(m_win_info->window, true);
     ImGui_ImplOpenGL3_Init(glsl_version);
-//    ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
-//
-//    // Main loop
-//    while (!glfwWindowShouldClose(m_window)) {
-//        glfwPollEvents();
-//
-//        // Start the Dear ImGui frame
-//        ImGui_ImplOpenGL3_NewFrame();
-//        ImGui_ImplGlfw_NewFrame();
-//        ImGui::NewFrame();
-//
-//        //创建主菜单
-//        ImGui::BeginMainMenuBar();
-//        ImGui::Button("File");
-//        ImGui::Button("Edit");
-//        ImGui::Button("Help");
-//        ImGui::EndMainMenuBar();
-//
-//        ImGui::Begin("Debug View");
-//        ImGui::Text("transform");
-//        ImGui::Text("position");
-//        ImGui::Text("rotation");
-//        ImGui::Text("scale");
-//        ImGui::End();
-//
-//        // Rendering
-//        ImGui::Render();
-//        int display_w, display_h;
-//        glfwGetFramebufferSize(m_window, &display_w, &display_h);
-//        glViewport(0, 0, display_w, display_h);
-//        glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
-//        glClear(GL_COLOR_BUFFER_BIT);
-//        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-//        glfwSwapBuffers(m_window);
-//    }
 }
 
 void pbreditor::WindowSystem::destroy() {

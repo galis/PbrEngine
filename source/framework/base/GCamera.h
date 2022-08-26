@@ -23,5 +23,11 @@ namespace pbreditor {
         void lookAt(glm::vec3 &eye, glm::vec3 &center, glm::vec3 &up);
 
         glm::mat4x4 &getMatrix();
+
+        const glm::vec3 &getEye() const;
+
+        const glm::vec3 &getCenter() const;
+
+        const glm::vec3 &getUp() const;
     };
 }

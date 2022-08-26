@@ -14,10 +14,11 @@ pbreditor::Texture::Texture(std::string &&path) : m_path(path), m_id(0), m_width
 }
 
 pbreditor::Texture::~Texture() {
-    if (m_id != 0) {
-        glDeleteTextures(1, &m_id);
-        m_id = 0;
-    }
+//    if (m_id != 0) {
+//        glDeleteTextures(1, &m_id);
+//        m_id = 0;
+//        ESLog("%s", "~Texture");
+//    }
 }
 
 int pbreditor::Texture::load() {
@@ -26,10 +27,17 @@ int pbreditor::Texture::load() {
     if (!data || m_width == 0) goto finish;
     glGenTextures(1, &m_id);
     glBindTexture(GL_TEXTURE_2D, m_id);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_width, m_height, 0, GL_RGBA, GL_UNSIGNED_INT, data);
-    glGenerateMipmap(GL_TEXTURE_2D);
+    if (m_channels == 3) {
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_width, m_height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+    } else if (m_channels == 4) {
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_width, m_height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+    } else if (m_channels ==1){
+//        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_width, m_height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+        //TODO
+    }
+//    glGenerateMipmap(GL_TEXTURE_2D);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
     glBindTexture(GL_TEXTURE_2D, 0);
@@ -38,5 +46,25 @@ int pbreditor::Texture::load() {
         stbi_image_free(data);
     }
     return RESULT_OK;
+}
+
+int pbreditor::Texture::getWidth() const {
+    return m_width;
+}
+
+int pbreditor::Texture::getHeight() const {
+    return m_height;
+}
+
+int pbreditor::Texture::getChannels() const {
+    return m_channels;
+}
+
+pbreditor::TextureID pbreditor::Texture::getId() const {
+    return m_id;
+}
+
+const std::string &pbreditor::Texture::getPath() const {
+    return m_path;
 }
 

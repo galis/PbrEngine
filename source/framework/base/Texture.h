@@ -28,6 +28,16 @@ namespace pbreditor {
 
         int load();
 
+        int getWidth() const;
+
+        int getHeight() const;
+
+        int getChannels() const;
+
+        TextureID getId() const;
+
+        const std::string &getPath() const;
+
     };
 }
 

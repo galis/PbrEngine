@@ -47,6 +47,6 @@ std::vector<pbreditor::GLight> &pbreditor::World::getLights() {
     return m_lights;
 }
 
-std::shared_ptr<pbreditor::GCamera> &pbreditor::World::getCamera() {
+std::shared_ptr<pbreditor::GCamera> pbreditor::World::getCamera() {
     return m_camera;
 }

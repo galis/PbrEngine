@@ -102,9 +102,8 @@ std::vector<pbreditor::Texture> pbreditor::GModel::loadMaterialTextures(aiMateri
     for (unsigned int i = 0; i < mat->GetTextureCount(type); i++) {
         aiString str;
         mat->GetTexture(type, i, &str);
-        Texture texture(dir + "/" + str.C_Str());
-        texture.load();//马上加载...
-        textures.push_back(texture);
+        textures.emplace_back(dir + "/" + str.C_Str());
+        textures.back().load();
     }
     return textures;
 }

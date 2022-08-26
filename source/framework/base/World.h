@@ -37,7 +37,7 @@ namespace pbreditor {
 
         std::vector<GLight> &getLights();
 
-        std::shared_ptr<GCamera> &getCamera();
+        std::shared_ptr<GCamera> getCamera();
     };
 
 }
