@@ -14,9 +14,9 @@ pbreditor::ForwardRenderPipe::~ForwardRenderPipe() {
 }
 
 int pbreditor::ForwardRenderPipe::render(const WindowInfo *winInfo, World *world) {
-    m_camera_pass.process(world);
-    m_camera_pass.render(winInfo);
-    m_ui_pass.render(winInfo);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    m_camera_pass.render(winInfo, world);
+    m_ui_pass.render(winInfo, world);
     glfwSwapBuffers(winInfo->window);
     return RESULT_OK;
 }

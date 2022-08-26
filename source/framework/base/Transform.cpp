@@ -52,15 +52,15 @@ void pbreditor::Transform::setRotation(glm::vec3 &rotation) {
     m_rotation = rotation;
 }
 
-const glm::vec3 &pbreditor::Transform::getPosition() {
+glm::vec3 &pbreditor::Transform::getPosition() {
     return m_position;
 }
 
-const glm::vec3 &pbreditor::Transform::getRotation() {
+glm::vec3 &pbreditor::Transform::getRotation() {
     return m_rotation;
 }
 
-const glm::vec3 &pbreditor::Transform::getScale() {
+glm::vec3 &pbreditor::Transform::getScale() {
     return m_scale;
 }
 

@@ -16,7 +16,10 @@ namespace pbreditor {
         GLuint m_program;
         GLuint m_fbo;
         int m_draw_index_num;
+
+        int process(World *world);
     public:
+
         MainCameraPass();
 
         ~MainCameraPass() override;
@@ -25,9 +28,7 @@ namespace pbreditor {
 
         int destroy() override;
 
-        int process(World *world);
-
-        int render(const WindowInfo *winInfo) override;
+        int render(const WindowInfo *winInfo,  World *world) override;
     };
 }
 

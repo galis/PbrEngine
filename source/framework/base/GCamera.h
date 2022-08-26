@@ -10,7 +10,6 @@ namespace pbreditor {
 
     class GCamera : public GObject {
     private:
-        glm::vec3 m_eye;
         glm::vec3 m_center;
         glm::vec3 m_up;
         glm::mat4x4 m_view_matrix;
@@ -24,10 +23,10 @@ namespace pbreditor {
 
         glm::mat4x4 &getMatrix();
 
-        const glm::vec3 &getEye() const;
-
         const glm::vec3 &getCenter() const;
 
         const glm::vec3 &getUp() const;
+
+
     };
 }

@@ -5,7 +5,7 @@
 #include "GLight.h"
 
 pbreditor::GLight::GLight(pbreditor::LightType type, glm::vec3 &&color) : m_light_type(type), m_light_color(color) {
-
+    setName("GLight" + getId());
 }
 
 pbreditor::GLight::~GLight() {

@@ -6,7 +6,7 @@
 #include "../../platform/platform.h"
 
 pbreditor::GModel::GModel(std::string &&path) : m_path(path), m_is_load(false) {
-
+    setName("GModel "+getId());
 }
 
 pbreditor::GModel::~GModel() {

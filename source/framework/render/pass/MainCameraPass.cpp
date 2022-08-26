@@ -13,12 +13,14 @@ layout(location = 2) in vec2 aTextureCoord;
 out vec3 vNormal;
 out vec2 vTextureCoord;
 out vec3 vWorldCoord;
-uniform mat4 mvpMatrix;
+uniform mat4 modelMatrix;
+uniform mat4 viewMatrix;
+uniform mat4 projMatrix;
 void main(){
     vTextureCoord = aTextureCoord;
     vNormal = aNormal;
     vWorldCoord = aVertCoord;
-    gl_Position = mvpMatrix * vec4(aVertCoord,1.0);
+    gl_Position = projMatrix*viewMatrix*modelMatrix* vec4(aVertCoord,1.0);
 }
 )";
 
@@ -56,7 +58,8 @@ pbreditor::MainCameraPass::~MainCameraPass() {
 
 }
 
-int pbreditor::MainCameraPass::render(const WindowInfo *winInfo) {
+int pbreditor::MainCameraPass::render(const WindowInfo *winInfo, World *world) {
+    process(world);
     glUseProgram(m_program);
     glViewport(0, 0, winInfo->width, winInfo->height);
     glClear(GL_DEPTH_BUFFER_BIT);
@@ -85,8 +88,15 @@ int pbreditor::MainCameraPass::process(pbreditor::World *world) {
     m_draw_index_num = mesh.m_indexs.size();
 
     //process camera
-    glm::mat4x4 &mvpMatrix = world->getCamera()->getMatrix();
-    glUniformMatrix4fv(glGetUniformLocation(m_program, "mvpMatrix"), 1, GL_FALSE, &mvpMatrix[0][0]);
+    glm::mat4x4 identyMatrix = glm::identity<glm::mat4x4>();
+    auto modelMatrix = glm::rotate(identyMatrix, glm::radians(model.getRotation().z), {0, 0, 1}) *
+                       glm::rotate(identyMatrix, glm::radians(model.getRotation().y), {0, 1, 0}) *
+                       glm::rotate(identyMatrix, glm::radians(model.getRotation().x), {1, 0, 0});
+    glm::mat4x4 &viewMatrix = world->getCamera()->getMatrix();
+    glm::mat4x4 projMatrix = glm::perspective(45.f, 1920.f / 1080.f, 0.1f, 100.f);
+    glUniformMatrix4fv(glGetUniformLocation(m_program, "modelMatrix"), 1, GL_FALSE, &modelMatrix[0][0]);
+    glUniformMatrix4fv(glGetUniformLocation(m_program, "viewMatrix"), 1, GL_FALSE, &viewMatrix[0][0]);
+    glUniformMatrix4fv(glGetUniformLocation(m_program, "projMatrix"), 1, GL_FALSE, &projMatrix[0][0]);
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, mesh.m_textures[0].getId());
     GLUtil::useTexParameter();
@@ -101,7 +111,7 @@ int pbreditor::MainCameraPass::process(pbreditor::World *world) {
     glUniform1i(glGetUniformLocation(m_program, "normTexture"), 2);
 
     glUniform3fv(glGetUniformLocation(m_program, "light"), 1, &world->getLights()[0].getPosition()[0]);
-    glUniform3fv(glGetUniformLocation(m_program, "eye"), 1, &world->getCamera()->getEye()[0]);
+    glUniform3fv(glGetUniformLocation(m_program, "eye"), 1, &world->getCamera()->getPosition()[0]);
     return RESULT_OK;
 }
 

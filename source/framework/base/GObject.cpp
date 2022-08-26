@@ -4,7 +4,7 @@
 
 #include "GObject.h"
 
-pbreditor::GObject::GObject() : m_id(g_id_alloc++) {
+pbreditor::GObject::GObject() : m_id(g_id_alloc++), m_name("Default") {
 
 }
 

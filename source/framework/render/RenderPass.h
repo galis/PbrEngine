@@ -19,7 +19,7 @@ namespace pbreditor {
 
         virtual int destroy();
 
-        virtual int render(const WindowInfo *winInfo);
+        virtual int render(const WindowInfo *winInfo, World *world);
     };
 }
 

@@ -46,11 +46,11 @@ namespace pbreditor {
 
         void setRotation(glm::vec3 &rotation);
 
-        const glm::vec3 &getPosition();
+        glm::vec3 &getPosition();
 
-        const glm::vec3 &getRotation();
+        glm::vec3 &getRotation();
 
-        const glm::vec3 &getScale();
+        glm::vec3 &getScale();
 
         friend std::ostream &operator<<(std::ostream &os, const Transform &transform);
     };

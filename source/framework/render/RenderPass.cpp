@@ -20,6 +20,6 @@ int pbreditor::RenderPass::destroy() {
     return 0;
 }
 
-int pbreditor::RenderPass::render(const WindowInfo *winInfo) {
+int pbreditor::RenderPass::render(const WindowInfo *winInfo, World *world) {
     return 0;
 }

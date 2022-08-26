@@ -6,17 +6,21 @@
 #define PBREDITOR_UIPASS_H
 
 #include "../RenderPass.h"
+#include <vector>
 
 namespace pbreditor {
 
     class UiPass : public RenderPass {
     private:
+        GObject *m_current_gobject;
+        std::vector<GObject *> m_objects;
     public:
         UiPass();
 
         ~UiPass();
 
-        int render(const WindowInfo *winInfo) override;
+        int render(const WindowInfo *winInfo, World *world) override;
+
     };
 
 }
