@@ -20,9 +20,9 @@ uniform mat4 viewMatrix;
 uniform mat4 projMatrix;
 void main(){
     vTextureCoord = aTextureCoord;
-    vNormal = aNormal;
-    vWorldCoord = aVertCoord;
-    vTangent = aTangent;
+    vNormal = vec3(modelMatrix*vec4(aNormal,1.0));
+    vWorldCoord = vec3(modelMatrix*vec4(aVertCoord,1.0));
+    vTangent = vec3(modelMatrix*vec4(aTangent,1.0));
     gl_Position = projMatrix*viewMatrix*modelMatrix* vec4(aVertCoord,1.0);
 }
 )";
