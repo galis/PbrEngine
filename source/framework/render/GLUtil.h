@@ -7,6 +7,8 @@
 
 #include <OpenGL/gl3.h>
 #include <string>
+#include "../base/Texture.h"
+#include <vector>
 
 namespace pbreditor {
 
@@ -19,6 +21,8 @@ namespace pbreditor {
         static GLuint loadShader(const std::string &strSource, GLuint shader_type);
 
         static GLuint loadProgram(const std::string &strVSource, const std::string &strFSource);
+
+        static void loadCubeMap(std::vector<std::string> &paths, Texture &texture);
 
         static void useTexParameter();
     };

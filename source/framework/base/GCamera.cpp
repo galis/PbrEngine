@@ -11,8 +11,7 @@ void pbreditor::GCamera::lookAt(glm::vec3 &eye, glm::vec3 &center, glm::vec3 &up
     m_up = up;
 }
 
-glm::mat4x4 &pbreditor::GCamera::getMatrix() {
-    m_view_matrix = glm::lookAt(getPosition(), m_center, m_up);
+glm::mat4x4 &pbreditor::GCamera::getViewMatrix() {
     return m_view_matrix;
 }
 
@@ -30,4 +29,9 @@ const glm::vec3 &pbreditor::GCamera::getCenter() const {
 
 const glm::vec3 &pbreditor::GCamera::getUp() const {
     return m_up;
+}
+
+void pbreditor::GCamera::tick() {
+    GObject::tick();
+    m_view_matrix = glm::lookAt(getPosition(), m_center, m_up);
 }

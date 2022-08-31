@@ -29,6 +29,7 @@ int pbreditor::RenderSystem::destroy() {
 }
 
 int pbreditor::RenderSystem::tick() {
+    m_world->tick();
     m_render_pipe->render(m_win_info.get(), m_world.get());
     return RESULT_OK;
 }

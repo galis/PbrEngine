@@ -16,7 +16,8 @@ namespace pbreditor {
     enum GObjectType {
         STATIC_MESH,
         LIGHT,
-        CAMERA
+        CAMERA,
+        SKYBOX
     };
 
     class GObject : public Transform {
@@ -24,6 +25,7 @@ namespace pbreditor {
         GObjectId m_id;
         std::string m_name;
         GObjectType m_type;
+        glm::mat4x4 m_matrix;
     public:
 
         GObject(GObjectType type);
@@ -42,7 +44,9 @@ namespace pbreditor {
 
         void setType(GObjectType mType);
 
-        void tick();
+        virtual void tick();
+
+        glm::mat4x4 &getMatrix();
 
         friend std::ostream &operator<<(std::ostream &os, const GObject &object);
 
