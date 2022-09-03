@@ -6,7 +6,11 @@
 #define PBREDITOR_TEXTURE_H
 
 
-#include <OpenGL/gl3.h>
+#ifdef __APPLE__
+#include <OpenGL/gl.h3>
+#else
+#include <GL/glut.h>
+#endif
 #include <string>
 
 namespace pbreditor {

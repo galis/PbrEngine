@@ -7,7 +7,6 @@
 
 #include "../RenderPass.h"
 #include "../GLUtil.h"
-#include <OpenGL/gl3.h>
 
 namespace pbreditor {
     class MainCameraPass : public RenderPass {

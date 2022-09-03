@@ -5,7 +5,12 @@
 #ifndef PBREDITOR_GLUTIL_H
 #define PBREDITOR_GLUTIL_H
 
+#ifdef __APPLE__
 #include <OpenGL/gl3.h>
+#else
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+#endif
 #include <string>
 
 namespace pbreditor {

@@ -14,7 +14,7 @@ pbreditor::PbrContext::~PbrContext() {
 
 void pbreditor::PbrContext::startSystems() {
     m_world = std::make_shared<World>();
-    m_world->addModel({0, 0, 0}, "/Volumes/mac-code/PbrEditor/asset/models/obj/cyborg/cyborg.obj");
+    m_world->addModel({0, 0, 0}, "/home/galis/workspace_het/PbrEngine/asset/models/obj/cyborg/cyborg.obj");
 //    m_world->addModel({5, 0, 0}, "/Volumes/mac-code/PbrEditor/asset/models/obj/cyborg/cyborg.obj");
     m_world->addLight(POINT, {0, 0, 10}, {1, 1, 1});
     m_world->setCamera({0, 5, 5}, {0, 1, 0}, {0, 1, 0});

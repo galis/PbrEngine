@@ -5,7 +5,7 @@
 #ifndef PBREDITOR_WINDOWSYSTEM_H
 #define PBREDITOR_WINDOWSYSTEM_H
 
-#include <GLFW/glfw3.h>
+#include "../render/GLUtil.h"
 #include <memory>
 #include <string>
 

@@ -14,7 +14,7 @@ namespace pbreditor {
     private:
         glm::vec3 m_position;
         glm::vec3 m_scale;
-        glm::quat m_rotation_qua;
+//        glm::quat m_rotation_qua;
         glm::vec3 m_rotation;
     public:
 
