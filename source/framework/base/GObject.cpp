@@ -12,10 +12,6 @@ pbreditor::GObject::~GObject() {
 
 }
 
-void pbreditor::GObject::tick() {
-
-}
-
 pbreditor::GObjectId pbreditor::GObject::getId() const {
     return m_id;
 }
@@ -44,4 +40,16 @@ pbreditor::GObjectType pbreditor::GObject::getType() const {
 void pbreditor::GObject::setType(pbreditor::GObjectType mType) {
     m_type = mType;
 }
+
+glm::mat4x4 &pbreditor::GObject::getMatrix() {
+    return m_matrix;
+}
+
+void pbreditor::GObject::tick() {
+    glm::mat4x4 identyMatrix = glm::identity<glm::mat4x4>();
+    m_matrix = glm::rotate(identyMatrix, glm::radians(getRotation().z), {0, 0, 1}) *
+               glm::rotate(identyMatrix, glm::radians(getRotation().y), {0, 1, 0}) *
+               glm::rotate(identyMatrix, glm::radians(getRotation().x), {1, 0, 0});
+}
+
 

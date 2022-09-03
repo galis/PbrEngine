@@ -50,3 +50,43 @@ std::vector<pbreditor::GLight> &pbreditor::World::getLights() {
 std::shared_ptr<pbreditor::GCamera> pbreditor::World::getCamera() {
     return m_camera;
 }
+
+int pbreditor::World::setSkyBox(std::vector<std::string> &&paths) {
+    if (!m_skybox) {
+        m_skybox = std::make_shared<GSkyBox>(std::move(paths));
+    } else {
+        m_skybox->setPaths(std::move(paths));
+    }
+    return 0;
+}
+
+std::shared_ptr<pbreditor::GSkyBox> pbreditor::World::getSkyBox() {
+    return m_skybox;
+}
+
+void pbreditor::World::tick() {
+    if (m_skybox) {
+        m_skybox->tick();
+    }
+    if (m_camera) {
+        m_camera->tick();
+    }
+    for (auto &light:m_lights) {
+        light.tick();
+    }
+    for (auto &model:m_models) {
+        model.tick();
+    }
+}
+
+void pbreditor::World::setPerspectiveProj(float fov, float scale, float near, float far) {
+    m_proj_matrix = glm::perspective(fov, scale, near, far);
+}
+
+void pbreditor::World::setOthoProj(float left, float right, float top, float bottom, float near, float far) {
+    m_proj_matrix = glm::ortho(left, right, top, bottom, near, far);
+}
+
+glm::mat4x4 &pbreditor::World::getProjMatrix() {
+    return m_proj_matrix;
+}

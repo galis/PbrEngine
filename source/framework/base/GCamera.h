@@ -21,11 +21,13 @@ namespace pbreditor {
 
         void lookAt(glm::vec3 &eye, glm::vec3 &center, glm::vec3 &up);
 
-        glm::mat4x4 &getMatrix();
+        glm::mat4x4 &getViewMatrix();
 
         const glm::vec3 &getCenter() const;
 
         const glm::vec3 &getUp() const;
+
+        void tick() override;
 
 
     };

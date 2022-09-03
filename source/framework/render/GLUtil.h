@@ -4,7 +4,6 @@
 
 #ifndef PBREDITOR_GLUTIL_H
 #define PBREDITOR_GLUTIL_H
-
 #ifdef __APPLE__
 #include <OpenGL/gl3.h>
 #else
@@ -12,6 +11,8 @@
 #include <GLFW/glfw3.h>
 #endif
 #include <string>
+#include <vector>
+#include "../base/Texture.h"
 
 namespace pbreditor {
 
@@ -24,6 +25,8 @@ namespace pbreditor {
         static GLuint loadShader(const std::string &strSource, GLuint shader_type);
 
         static GLuint loadProgram(const std::string &strVSource, const std::string &strFSource);
+
+        static void loadCubeMap(std::vector<std::string> &paths, Texture &texture);
 
         static void useTexParameter();
     };

@@ -8,6 +8,7 @@
 #include "GModel.h"
 #include "GLight.h"
 #include "GCamera.h"
+#include "GSkyBox.h"
 #include <memory>
 #include <vector>
 
@@ -18,6 +19,8 @@ namespace pbreditor {
         std::vector<GModel> m_models;
         std::vector<GLight> m_lights;
         std::shared_ptr<GCamera> m_camera;
+        std::shared_ptr<GSkyBox> m_skybox;
+        glm::mat4x4 m_proj_matrix;
     public:
         World();
 
@@ -31,13 +34,25 @@ namespace pbreditor {
 
         int removeLight(GObjectId id);
 
+        int setSkyBox(std::vector<std::string> &&paths);
+
         int setCamera(glm::vec3 &&eye, glm::vec3 &&center, glm::vec3 &&up);
+
+        void setPerspectiveProj(float fov, float scale, float near, float far);
+
+        void setOthoProj(float left, float right, float top, float bottom, float near, float far);
+
+        glm::mat4x4 &getProjMatrix();
+
+        void tick();
 
         std::vector<GModel> &getModels();
 
         std::vector<GLight> &getLights();
 
         std::shared_ptr<GCamera> getCamera();
+
+        std::shared_ptr<GSkyBox> getSkyBox();
     };
 
 }

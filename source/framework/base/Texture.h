@@ -7,15 +7,22 @@
 
 
 #ifdef __APPLE__
-#include <OpenGL/gl.h3>
+#include <OpenGL/gl3.h>
 #else
-#include <GL/glut.h>
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
 #endif
 #include <string>
 
 namespace pbreditor {
 
     typedef GLuint TextureID;
+    enum TextureType {
+        DIFF,
+        NORMAL,
+        SPECULAR,
+        CUBE,
+    };
 
     class Texture {
     private:
@@ -24,9 +31,12 @@ namespace pbreditor {
         int m_channels;
         TextureID m_id;
         std::string m_path;
+        TextureType m_type;
     public:
 
         explicit Texture(std::string &&path);
+
+        Texture();
 
         ~Texture();
 
@@ -40,7 +50,11 @@ namespace pbreditor {
 
         TextureID getId() const;
 
+        void setId(TextureID id);
+
         const std::string &getPath() const;
+
+        void setPath(const std::string &mPath);
 
     };
 }

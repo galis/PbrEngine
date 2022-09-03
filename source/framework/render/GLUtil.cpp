@@ -2,6 +2,7 @@
 // Created by galismac on 25/8/2022.
 //
 
+#include <stb_image.h>
 #include "GLUtil.h"
 #include "../../platform/platform.h"
 
@@ -93,6 +94,32 @@ void pbreditor::GLUtil::useTexParameter() {
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     //设置环绕方向T，截取纹理坐标到[1/2n,1-1/2n]。将导致永远不会与border融合
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+}
+
+void pbreditor::GLUtil::loadCubeMap(std::vector<std::string>& paths, pbreditor::Texture &texture) {
+    if (paths.size() != 6) return;
+    if (texture.getId() == 0) {
+        TextureID id;
+        glGenTextures(1, &id);
+        texture.setId(id);
+    }
+    glBindTexture(GL_TEXTURE_CUBE_MAP, texture.getId());
+    int width, height, channel;
+    for (int i = 0; i < 6; i++) {
+        if (paths[i].empty()) return;
+        unsigned char *data = stbi_load(paths[i].c_str(), &width, &height, &channel, 0);
+        if (!data || width == 0 || channel != 3) goto finish;
+        glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+        finish:
+        if (data) {
+            stbi_image_free(data);
+        }
+    }
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+    glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
 }
 
 //GLuint pbreditor::GLUtil::loadTextureLuminace(void *byteBuffer, int w, int h, GLuint texId) {
