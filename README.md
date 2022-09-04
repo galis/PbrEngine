@@ -2,6 +2,15 @@
 
 ## 物体添加删除 待定
 
+## 欧拉角
+https://blog.csdn.net/yuzhongchun/article/details/22749521/
+
+pitch x
+
+yaw y
+
+roll z
+
 ## 天空盒
 
 1.6个面

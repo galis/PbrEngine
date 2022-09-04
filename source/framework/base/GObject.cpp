@@ -47,9 +47,11 @@ glm::mat4x4 &pbreditor::GObject::getMatrix() {
 
 void pbreditor::GObject::tick() {
     glm::mat4x4 identyMatrix = glm::identity<glm::mat4x4>();
-    m_matrix = glm::rotate(identyMatrix, glm::radians(getRotation().z), {0, 0, 1}) *
+    auto tMat = glm::translate(glm::identity<glm::mat4>(),getPosition());
+    auto rMat = glm::rotate(identyMatrix, glm::radians(getRotation().z), {0, 0, 1}) *
                glm::rotate(identyMatrix, glm::radians(getRotation().y), {0, 1, 0}) *
                glm::rotate(identyMatrix, glm::radians(getRotation().x), {1, 0, 0});
+    m_matrix = tMat*rMat;
 }
 
 

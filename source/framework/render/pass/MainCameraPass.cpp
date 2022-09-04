@@ -28,7 +28,7 @@ int pbreditor::MainCameraPass::destroy() {
 
 int pbreditor::MainCameraPass::render(const pbreditor::WindowInfo *winInfo, pbreditor::World *world) {
     m_bling_phone_pass.render(winInfo, world);
-    m_skybox_pass.render(winInfo,world);
+//    m_skybox_pass.render(winInfo,world);
     m_ui_pass.render(winInfo,world);
     return RenderPass::render(winInfo, world);
 }

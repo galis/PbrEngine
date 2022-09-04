@@ -2,6 +2,9 @@
 
 using namespace pbreditor;
 
+#include <vector>
+using namespace std;
+
 int main() {
     PbrEngine pbrEngine;
     pbrEngine.init();

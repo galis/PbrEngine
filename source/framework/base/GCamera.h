@@ -11,7 +11,10 @@ namespace pbreditor {
     class GCamera : public GObject {
     private:
         glm::vec3 m_center;
-        glm::vec3 m_up;
+        glm::vec3 m_world_up;
+        glm::vec3 m_cur_front;
+        glm::vec3 m_cur_up;
+        glm::vec3 m_cur_right;
         glm::mat4x4 m_view_matrix;
     public:
 

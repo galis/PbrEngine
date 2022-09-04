@@ -8,25 +8,24 @@
 
 static const std::string VS = R"(#version 330 core
 layout(location = 0) in vec3 aVertCoord;
-layout(location = 2) in vec2 aTextureCoord;
-out vec2 vTextureCoord;
+out vec3 vTextureCoord;
 uniform mat4 viewMatrix;
 uniform mat4 projMatrix;
 void main(){
-    vTextureCoord = aTextureCoord;
-    gl_Position = projMatrix*viewMatrix* vec4(aVertCoord,1.0);
-//    gl_Position = vec4(aVertCoord,1.0);
+    vTextureCoord = aVertCoord;
+    vec4 pos = projMatrix*viewMatrix* vec4(aVertCoord,1.0);
+    gl_Position = pos.xyww;
 }
 )";
 
 static const std::string FS = R"(#version 330 core
 precision mediump float;
-in vec2 vTextureCoord;
+in vec3 vTextureCoord;
 out vec4 vFragColor;
 uniform samplerCube skyCubeTexture;
 
 void main(){
-    vFragColor = vec4(1.0);
+    vFragColor = texture(skyCubeTexture,vTextureCoord).rgba;
 }
 )";
 
@@ -95,6 +94,8 @@ int pbreditor::SkyBoxPass::init() {
     glBindVertexArray(m_vao);
     glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
     glBufferData(GL_ARRAY_BUFFER, S_SKY_BOX_VERTS.size() * sizeof(float), &S_SKY_BOX_VERTS[0], GL_STATIC_DRAW);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, false, sizeof(float)*3, 0);
     glBindVertexArray(0);
     return RenderPass::init();
 }
@@ -119,14 +120,19 @@ int pbreditor::SkyBoxPass::render(const WindowInfo *winInfo, World *world) {
     if (skyBox->load()) {
         return RESULT_ERROR;
     }
+    glViewport(0,0,winInfo->width,winInfo->height);
+    glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LEQUAL);
     glUseProgram(m_program);
     glBindVertexArray(m_vao);
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_CUBE_MAP, skyBox->getTexture().getId());
-    glUniformMatrix4fv(glGetUniformLocation(m_program, "viewMatrix"), 1, GL_FALSE, &world->getCamera()->getViewMatrix()[0][0]);
-    glUniformMatrix4fv(glGetUniformLocation(m_program, "projMatrix"), 1, GL_FALSE, &world->getProjMatrix()[0][0]);
     glUniform1i(glGetUniformLocation(m_program, "skyCubeTexture"), 0);
+    glUniformMatrix4fv(glGetUniformLocation(m_program, "projMatrix"), 1, GL_FALSE, &world->getProjMatrix()[0][0]);
+    glm::mat4 cameraMat = glm::mat4(glm::mat3(world->getCamera()->getViewMatrix()));
+    glUniformMatrix4fv(glGetUniformLocation(m_program, "viewMatrix"), 1, GL_FALSE, &cameraMat[0][0]);
     glDrawArrays(GL_TRIANGLES, 0, 36);
     glBindVertexArray(0);
+    glDisable(GL_DEPTH_TEST);
     return RESULT_OK;
 }
