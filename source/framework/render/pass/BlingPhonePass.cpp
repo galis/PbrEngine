@@ -70,9 +70,8 @@ int pbreditor::BlingPhonePass::render(const WindowInfo *winInfo, World *world) {
     process(world);
     glUseProgram(m_program);
     glViewport(0, 0, winInfo->width, winInfo->height);
-    glClear(GL_DEPTH_BUFFER_BIT);
     glEnable(GL_DEPTH_TEST);
-    glDrawElements(GL_TRIANGLES, m_draw_index_num, GL_UNSIGNED_INT, 0);
+    glDrawElements(GL_TRIANGLES, m_draw_index_num, GL_UNSIGNED_INT, nullptr);
     glDisable(GL_DEPTH_TEST);
     return RESULT_OK;
 }
@@ -100,6 +99,7 @@ int pbreditor::BlingPhonePass::process(pbreditor::World *world) {
     glm::mat4x4 &modelMatrix = model.getMatrix();
     glm::mat4x4 &viewMatrix = world->getCamera()->getViewMatrix();
     glm::mat4x4 &projMatrix = world->getProjMatrix();
+    glUseProgram(m_program);
     glUniformMatrix4fv(glGetUniformLocation(m_program, "modelMatrix"), 1, GL_FALSE, &modelMatrix[0][0]);
     glUniformMatrix4fv(glGetUniformLocation(m_program, "viewMatrix"), 1, GL_FALSE, &viewMatrix[0][0]);
     glUniformMatrix4fv(glGetUniformLocation(m_program, "projMatrix"), 1, GL_FALSE, &projMatrix[0][0]);

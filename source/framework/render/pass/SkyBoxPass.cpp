@@ -95,7 +95,7 @@ int pbreditor::SkyBoxPass::init() {
     glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
     glBufferData(GL_ARRAY_BUFFER, S_SKY_BOX_VERTS.size() * sizeof(float), &S_SKY_BOX_VERTS[0], GL_STATIC_DRAW);
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, false, sizeof(float)*3, 0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, false, sizeof(float)*3, nullptr);
     glBindVertexArray(0);
     return RenderPass::init();
 }
@@ -133,6 +133,7 @@ int pbreditor::SkyBoxPass::render(const WindowInfo *winInfo, World *world) {
     glUniformMatrix4fv(glGetUniformLocation(m_program, "viewMatrix"), 1, GL_FALSE, &cameraMat[0][0]);
     glDrawArrays(GL_TRIANGLES, 0, 36);
     glBindVertexArray(0);
+    glDepthFunc(GL_LESS);
     glDisable(GL_DEPTH_TEST);
     return RESULT_OK;
 }

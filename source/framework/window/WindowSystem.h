@@ -15,6 +15,8 @@ namespace pbreditor {
         std::string name;
         int width;
         int height;
+        int viewPortWith;
+        int viewPortHeight;
     };
 
     class WindowSystem {

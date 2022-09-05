@@ -7,7 +7,7 @@
 
 void pbreditor::GCamera::lookAt(glm::vec3 &eye, glm::vec3 &center, glm::vec3 &up) {
     setPosition(eye);
-    m_center = center;
+    m_cur_front = center;
     m_world_up = up;
 }
 
@@ -15,27 +15,21 @@ glm::mat4x4 &pbreditor::GCamera::getViewMatrix() {
     return m_view_matrix;
 }
 
-pbreditor::GCamera::GCamera() : GObject(CAMERA), m_center(0.f, 0.f, 0.f), m_world_up(0.f, 1.f, 0.f) {
+pbreditor::GCamera::GCamera() : GObject(CAMERA), m_world_up(0.f, 1.f, 0.f) {
     setName("GCamera" + getId());
+    glm::vec3 defaultRotation(0,-90,0);
+    setRotation(defaultRotation);
 }
 
 pbreditor::GCamera::~GCamera() {
 
 }
 
-const glm::vec3 &pbreditor::GCamera::getCenter() const {
-    return m_center;
-}
-
-const glm::vec3 &pbreditor::GCamera::getUp() const {
-    return m_world_up;
-}
-
 void pbreditor::GCamera::tick() {
     GObject::tick();
     auto& rotation = getRotation();
-    if(rotation.x>=90.0f) rotation.x = 90.f;
-    if(rotation.x<=-90.0f) rotation.x = -90.f;
+    if(rotation.x>=89.0f) rotation.x = 89.f;
+    if(rotation.x<=-89.0f) rotation.x = -89.f;
     m_cur_front.x = cos(glm::radians(rotation.y)) * cos(glm::radians(rotation.x));
     m_cur_front.y = sin(glm::radians(rotation.x));
     m_cur_front.z = sin(glm::radians(rotation.y)) * cos(glm::radians(rotation.x));

@@ -8,3 +8,5 @@ glad glfw加入可以参考learnopengl,必须记得glad.h要放在glfw.h之前,�
 #include <GLFW/glfw3.h>
 #endif
 ```
+#2.glUniform
+必须先使用glUseProgram

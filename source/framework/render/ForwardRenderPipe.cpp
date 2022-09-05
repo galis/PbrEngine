@@ -14,8 +14,10 @@ pbreditor::ForwardRenderPipe::~ForwardRenderPipe() {
 }
 
 int pbreditor::ForwardRenderPipe::render(const WindowInfo *winInfo, World *world) {
-    glClearColor(1.0f,0.0f,0.0f,1.0f);
+    glDisable(GL_BLEND);
+    glDepthRange(0,1);
     glClearDepth(1.0f);
+    glClearColor(1.0f,0.0f,0.0f,1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     mainCameraPass.render(winInfo, world);
     glfwSwapBuffers(winInfo->window);
